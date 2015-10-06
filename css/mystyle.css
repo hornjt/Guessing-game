@@ -1,0 +1,23 @@
+body {
+    background-color: lightblue;
+}
+
+h1 {
+    color: navy;
+    text-align: center;
+}
+
+#textbox {
+	width: 20%;
+	margin: auto;
+}
+
+#button-group {
+	margin: auto;
+}
+
+#guesses {
+	color: red;
+	margin: auto;
+	font-size: 150%;
+}
