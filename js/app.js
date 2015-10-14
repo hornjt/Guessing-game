@@ -8,7 +8,7 @@ Resets all buttons and fields for a new game
 */
 function newGame() {
 	randNum = Math.round(Math.random() * 100);
-	numGuesses = 1;
+	numGuesses = 5;
 	console.log(randNum);
 
 	// Reactivate both buttons
@@ -23,13 +23,24 @@ function newGame() {
 Handles the math for higher or lower
 */
 function doMath(num) {
+	var diff = Math.abs(num - randNum);
 	if (num === randNum) {
-		gameOver("You are CORRECT!")
-	} else if (num < randNum) {
-		$('#direction').text("You are low, guess higher");
+		gameOver("You are CORRECT!");
+	} 
+	else if (num < randNum && diff > 25) {
+		$('#direction').text("You are ice cold, guess higher");
 		return true;
-	} else {
-		$('#direction').text("You are high, guess lower");
+	}
+	else if (num < randNum && diff <= 25) {
+		$('#direction').text("You are warm, guess higher");
+		return true; 
+	} 
+	else if (num >randNum && diff <= 25) {
+		$('#direction').text("You are warm, guess lower");
+		return true; 
+	} 
+	else {
+		$('#direction').text("You are ice cold, guess lower");
 		return true;
 	}
 }
@@ -50,17 +61,27 @@ function checkGuesses(guess) {
 }
 
 /*
+End game as winner or loser
+*/
+function gameOver(string) {
+	$('#guesses').text(string);
+	$('#direction').text("");
+	$('#submit').prop("disabled", true);
+	$('#hint').prop("disabled", true);
+}
+
+/*
 Submit button click event handler function
 */
 $('#submit').click(function() {
 	var textInput = $('#textbox').val();
-	if (isNaN(textInput)) {
-		alert("Please enter a number");
+	if (isNaN(textInput) || textInput < 1 || textInput > 100) {
+		alert("Please enter a valid input");
 		return;
 	}
 
 	//  parse string to number
- 	textInput = Number($('#textbox').val());	
+	textInput = Number($('#textbox').val());	
  	// Number not already guessed and not a match === true
  	if (checkGuesses(textInput) && doMath(textInput)){
  		$('#guesses').text(--numGuesses + " guesses remaining");
@@ -70,16 +91,6 @@ $('#submit').click(function() {
  		}
  	}
  })
-
-/*
-End game as winner or loser
-*/
-function gameOver(string) {
-	$('#guesses').text(string);
-	$('#direction').text("");
-	$('#submit').prop("disabled", true);
-	$('#hint').prop("disabled", true);
-}
 
 /*
 Hint button click event handler function
