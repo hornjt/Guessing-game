@@ -16,8 +16,8 @@ h1 {
 	margin: auto;
 }
 
-#guesses {
+#guess_answer {
 	color: red;
-	margin: auto;
 	font-size: 150%;
+	margin: 10px 0 10px -35px
 }
