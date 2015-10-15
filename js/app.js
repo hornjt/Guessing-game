@@ -1,6 +1,6 @@
-var randNum = 0;
-var numGuesses = 0;
-var guessArray = [];
+var randNum = 0, numGuesses = 0, guessArray = [];
+var $overlay = $('<div id="overlay"></div>');
+var $image = $('<img>');
 newGame();
 
 /*
@@ -26,6 +26,7 @@ function doMath(num) {
 	var diff = Math.abs(num - randNum);
 	if (num === randNum) {
 		gameOver("You are CORRECT!");
+		buildOverlay();
 	} 
 	else if (num < randNum && diff > 25) {
 		$('#direction').text("You are ice cold, guess higher");
@@ -68,6 +69,7 @@ function gameOver(string) {
 	$('#direction').text("");
 	$('#submit').prop("disabled", true);
 	$('#hint').prop("disabled", true);
+	
 }
 
 /*
@@ -105,3 +107,17 @@ Play Again button click event handler function
 $('#playAgain').click(function() {
 	newGame();
 })
+
+function buildOverlay() {
+	$overlay.append($image);
+	$("body").append($overlay);
+	//event.preventDefault();
+	var imageLocation = "img/win.jpg";
+	$image.attr("src", imageLocation);
+	// show the overlay
+	$overlay.show();
+}
+
+$overlay.click(function() {
+	$(this).hide();
+});
