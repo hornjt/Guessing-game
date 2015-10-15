@@ -50,15 +50,23 @@ function doMath(num) {
 Check if number has been guessed before
 */
 function checkGuesses(guess) {
+	if (guessArray.indexOf(guess) !== -1) {
+		$('#doubleGuess').text("You already guessed that number");
+		return false;
+	}
+	/*
 	for (var i = 0; i < guessArray.length; i++) {
 		if (guessArray[i] === guess) {
-			$('#doubleGuess').text("You already guessed that number");
-			return false;
+			
 		}
 	}
-	guessArray.push(guess);
-	$('#doubleGuess').text("");	
-	return true;
+	*/
+	else {
+		guessArray.push(guess);
+		$('#doubleGuess').text("");	
+		return true;
+	}
+	
 }
 
 /*
